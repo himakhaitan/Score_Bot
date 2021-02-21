@@ -1,0 +1,21 @@
+{
+  "name": "discord_score_bot",
+  "version": "1.0.0",
+  "description": "Score telling Bot",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js",
+    "dev": "env-cmd -f ./config/dev.env node index.js"
+  },
+  "author": "Himanshu Khaitan",
+  "license": "ISC",
+  "dependencies": {
+    "discord.js": "^12.5.1",
+    "nodemon": "^2.0.7",
+    "request": "^2.88.2",
+    "unirest": "^0.6.0"
+  },
+  "devDependencies": {
+    "env-cmd": "^10.1.0"
+  }
+}
