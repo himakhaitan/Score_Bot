@@ -1,10 +1,11 @@
 const Discord = require("discord.js");
 const client = new Discord.Client();
 const token = process.env.TOKEN;
+const notifier = require("node-notifier");
 
 const getScore = require("./utils/getScore");
 const getMatches = require("./utils/getMatches");
-const searchMatch = require("./utils/searchMatch")
+const searchMatch = require("./utils/searchMatch");
 const subsMatch = require("./utils/subsMatch");
 
 const prefix = "-";
@@ -128,9 +129,11 @@ client.on("message", (message) => {
               name: "Subscribe a Match",
               value:
                 "`(subs <n>)` where n is the number of match! For eg: `(-subs 1)`",
-            },{
+            },
+            {
               name: "Search a Match",
-              value: "`(sm <name>)` where League Name is reffered as name. For e.g `(-sm Bundesliga)`"
+              value:
+                "`(sm <name>)` where League Name is reffered as name. For e.g `(-sm Bundesliga)`",
             },
             {
               name: "Note",
@@ -213,6 +216,13 @@ client.on("message", (message) => {
             },
           },
         });
+        notifier.notify({
+          title: `${data.data.team_one} vs ${data.data.team_two}`,
+          message: `Thanks for Subscribing ${message.author.username}`,
+          icon: "./img/1.jpg",
+          sound: true,
+          wait: true,
+        });
       });
       subsMatch(parseInt(match_no[0]), (data) => {
         message.channel.send({
@@ -231,10 +241,9 @@ client.on("message", (message) => {
           },
         });
       });
-    }
-    else if (command.startsWith('sm')) {
+    } else if (command.startsWith("sm")) {
       const leauge = message.content.slice(4).split(/ + /);
-      const leauge_name = leauge[0].toString()
+      const leauge_name = leauge[0].toString();
       searchMatch(leauge_name, (data) => {
         message.channel.send({
           embed: {
@@ -253,9 +262,8 @@ client.on("message", (message) => {
             },
           },
         });
-        console.log(data)
-      })
-      
+        console.log(data);
+      });
     }
   }
 });

@@ -1,11 +1,9 @@
-const request = require('request')
-const API_KEY = process.env.API_KEY;
-const API_SECRET = process.env.API_SECRET;
-
-const URL = `http://livescore-api.com/api-client/scores/live.json?key=${API_KEY}&secret=${API_SECRET}`
+const request = require('request');
+const api = require('./api');
 
 const subsMatch = (match_num, callback) => {
-    request({url: URL, json: true}, (error, response) => {
+    
+       api((response) => {
         if (response.body.data.match[match_num].status === 'FINISHED') {
             callback('Match is Finished!')
         }
@@ -26,7 +24,7 @@ const subsMatch = (match_num, callback) => {
                 
             }, 60000)
         }
-    })
+       })
 }
 
 module.exports = subsMatch;
